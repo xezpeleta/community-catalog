@@ -1,0 +1,70 @@
+version: '2'
+catalog:
+  name: "ElkarBackup"
+  version: "v1.3.1-rancher1"
+  description: "Open source backup solution for your network"
+  minimum_rancher_version: v0.51.0
+  upgrade_from: "v1.3.0-rancher1"
+  questions:
+    - variable: http_enabled
+      description: "Enable HTTP public port"
+      label: "Enable public port. Disable it if you use a LB"
+      type: "boolean"
+      default: "true"
+    - variable: http_port
+      description: "Public port to access ElkarBackup web UI"
+      label: "HTTP public port"
+      required: true
+      default: "80"
+      type: "int" 
+    - variable: mysql_root_password
+      description: "MySQL root password. You should generate a new one"
+      label: "MySQL password"
+      default: "changeme"
+      type: "password"
+    - variable: cron_enabled
+      description: "Enable built-in CRON daemon (disable if you want to use Rancher Container Cron)"
+      label: "CRON enabled"
+      type: "boolean"
+      default: "true"
+    - variable: timezone
+      description: "Timezone"
+      label: "Timezone"
+      type: "string"
+      default: "Europe/Paris"
+    - variable: volume_driver
+      description: "Volume driver to use with this service"
+      label: "Volume driver"
+      required: true
+      default: "local"
+      type: enum
+      options:
+        - local
+        - rancher-nfs
+        - rancher-efs
+        - rancher-ebs
+services:
+  elkarbackup:
+    scale: 1
+    retain_ip: true
+    health_check:
+      port: 80
+      interval: 5000
+      unhealthy_threshold: 3
+      initializing_timeout: 60000
+      request_line: 'GET /login HTTP/1.0'
+      healthy_threshold: 2
+      response_timeout: 5000 
+      reinitializing_timeout: 60000
+  db:
+    scale: 1
+    retain_ip: true
+    health_check:
+      healthy_threshold: 2
+      response_timeout: 2000
+      port: 3306
+      unhealthy_threshold: 3
+      initializing_timeout: 60000
+      interval: 2000
+      strategy: recreate
+      reinitializing_timeout: 60000

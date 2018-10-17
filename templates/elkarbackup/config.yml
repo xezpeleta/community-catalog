@@ -1,0 +1,8 @@
+name: Elkarbackup
+description: |
+  Open source backup solution for your network
+version: v0.2
+category: Security
+maintainer: Xabi Ezpeleta <xezpeleta@gmail.com>
+license: New-BSD
+projectURL: https://www.elkarbackup.org
