@@ -1,7 +1,7 @@
 name: Elkarbackup
 description: |
   Open source backup solution for your network
-version: v0.2
+version: v1.3.1
 category: Security
 maintainer: Xabi Ezpeleta <xezpeleta@gmail.com>
 license: New-BSD
