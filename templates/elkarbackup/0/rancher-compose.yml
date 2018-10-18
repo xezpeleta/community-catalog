@@ -1,7 +1,7 @@
 version: '2'
 catalog:
   name: "ElkarBackup"
-  version: "v1.3.1-rancher1"
+  version: "v1.3.1"
   description: "Open source backup solution for your network"
   minimum_rancher_version: v0.51.0
   upgrade_from: "v1.3.0-rancher1"
